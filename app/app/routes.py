@@ -30,6 +30,19 @@ def create_provider(provider_name):
         return resp
 
 
+@app.route("/providers", methods=["GET"])
+def list_providers():
+    providers = db.session.query(Provider).all()
+
+    res = [{"name": provider.name, "links": [
+        {
+            "rel": "provider",
+            "href": get_api_root() + f"providers/{provider.name}"
+        }]}
+           for provider in providers]
+
+    return json.dumps(res, cls=SetEncoder), 200, {'Content-Type': 'application/json'}
+
 @app.route("/providers/<provider_name>", methods=["GET"])
 def list_logins_for_provider(provider_name):
     provider = db.session.query(Provider).filter(Provider.name == provider_name).first()
