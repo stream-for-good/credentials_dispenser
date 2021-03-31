@@ -1,0 +1,9 @@
+language: python
+
+services:
+  - docker
+  
+script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t stream4good/credentials-dispenser:$TRAVIS_BRANCH .
+  - docker push stream4good/credentials-dispenser:$TRAVIS_BRANCH
