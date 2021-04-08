@@ -13,5 +13,7 @@ docker-push-release:
 	docker push stream4good/credentials-dispenser:$(VERSION)
 	docker push stream4good/credentials-dispenser:$(VERSION_MAJOR)
 	docker push stream4good/credentials-dispenser:$(VERSION_MAJOR_MINOR)
+local-db:
+	cd app && rm -rf migrations/ && rm -f app/app.db && FLASK_APP=app.main flask db init && FLASK_APP=app.main flask db migrate && FLASK_APP=app.main flask db upgrade
 
 

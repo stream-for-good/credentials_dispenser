@@ -22,3 +22,4 @@ class Credentials(db.Model):
 
     provider_id = db.Column(db.Integer, db.ForeignKey("PROVIDER.id"))
     provider = db.relationship("Provider", back_populates="credentials")
+    expiration = db.Column(db.DateTime, default=None, server_default=None)
